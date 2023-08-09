@@ -7,6 +7,10 @@ const app = express();
 const cors = require('cors');
 const books = require('./routes/api/books');
 
+
+const path = require("path");
+
+process.env["NODE_CONFIG_DIR"] = path.join(path.resolve("./"), "config/");
 // Connect Database
 connectDB();
 app.use(cors({ origin: true, credentials: true }));
@@ -14,10 +18,10 @@ app.use(cors({ origin: true, credentials: true }));
 // Init Middleware
 app.use(express.json({ extended: false }));
 
-app.get('/', (req, res) => res.send('Hello world!'));
+app.get('/hello', (req, res) => res.send('Hello world!'));
 
 // use Routes
-app.use('/api/books', books);
+app.use('/', books);
 
 
 const port = process.env.PORT || 8082;
